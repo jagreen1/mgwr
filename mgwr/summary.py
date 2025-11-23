@@ -18,10 +18,11 @@ def summaryGLM(self):
         XNames = list(self.name_x)
         if len(XNames) < self.k:
             XNames = ["Intercept"] + XNames
+    
     else:
         XNames = ["X" + str(i) for i in range(self.k)]
     glm_rslt = GLM(self.model.y, self.model.X, constant=False,
-                   family=self.family).fit()
+                   family=self.family, offset=self.offset).fit()
 
     summary = "%s\n" % ('Global Regression Results')
     summary += '-' * 75 + '\n'
