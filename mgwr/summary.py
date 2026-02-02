@@ -194,15 +194,15 @@ def summaryMGWR(self):
 
     summary += "\n%s\n" % ('Summary Statistics For MGWR Parameter Estimates')
     summary += '-' * 75 + '\n'
-    summary += "%-20s %10s %10s %10s %10s %10s\n" % ('Variable', 'Mean', 'STD',
+    summary += "%-20s %10s %10s %10s %10s %10s %10s\n" % ('Variable', 'Mean', 'STD', 'IQR'
                                                      'Min', 'Median', 'Max')
-    summary += "%-20s %10s %10s %10s %10s %10s\n" % (
-        '-' * 20, '-' * 10, '-' * 10, '-' * 10, '-' * 10, '-' * 10)
+    summary += "%-20s %10s %10s %10s %10s %10s %10s\n" % (
+        '-' * 20, '-' * 10, '-' * 10, '-' * 10, '-' * 10, '-' * 10, '-' * 10)
     for i in range(self.k):
-        summary += "%-20s %10.3f %10.3f %10.3f %10.3f %10.3f\n" % (
-            XNames[i][:20], np.mean(self.params[:, i]), np.std(self.params[:, i]),
-            np.min(self.params[:, i]), np.median(self.params[:, i]),
-            np.max(self.params[:, i]))
+        summary += "%-20s %10.3f %10.3f %10.3f %10.3f %10.3f %10.3f\n" % (
+            XNames[i][:20], np.mean(self.params[:, i]), np.std(self.params[:, i]), 
+            np.percentile(self.params[:, i], 75) - np.percentile(self.params[:, i], 25),
+            np.min(self.params[:, i]), np.median(self.params[:, i]), np.max(self.params[:, i]))
 
     summary += '=' * 75 + '\n'
     return summary
